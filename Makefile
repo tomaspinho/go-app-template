@@ -21,3 +21,4 @@ install_tools:
 clean_template:
 	git rm sql/migrations/*
 	git rm sql/queries/*
+	git rm pkg/db/*
