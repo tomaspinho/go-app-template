@@ -22,3 +22,8 @@ clean_template:
 	git rm sql/migrations/*
 	git rm sql/queries/*
 	git rm pkg/db/*
+
+# Makes the template your own by replacing all references to github.com/lol/new
+# with the new module name. Set MODULE_NAME
+own:
+	find . -type f -exec sed -i 's#github\.com/tomaspinho/go-app-template#$(MODULE_NAME)#g' {} +
