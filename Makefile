@@ -1,6 +1,16 @@
 MIGRATIONS_PATH=./sql/migrations
 
 include .envrc
+
+DATABASE_URL_NO_OPTS=$(shell echo "${DATABASE_URL}" | sed -e "s/\?.*//g")
+DATABASE_NAME=$(shell basename ${DATABASE_URL_NO_OPTS})
+DATABASE_HOST=$(shell dirname ${DATABASE_URL_NO_OPTS})
+drop_db:
+	psql "$(DATABASE_HOST)" -c "drop database $(DATABASE_NAME)"
+
+create_db:
+	psql "$(DATABASE_HOST)" -c "create database $(DATABASE_NAME)"
+
 migrate:
 	migrate -source file://$(MIGRATIONS_PATH) -database "${DATABASE_URL}" up
 
